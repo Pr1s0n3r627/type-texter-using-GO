@@ -18,31 +18,20 @@ func main() {
 	textEdit := widget.NewMultiLineEntry()
 	textEdit.SetPlaceHolder("Paste your code here\nmake sure it is correct and complete")
 
-	var progressBar *widget.ProgressBar // Declare progressBar variable
-
-	// Set the color of the progress bar to black
-	progressBar = widget.NewProgressBar()
-	progressBar.Max = 5 // Set the maximum value of the progress bar to 5 seconds
-
-	content := container.NewVBox()
 	typeButton := widget.NewButton("Type", func() {
-		progressBar = widget.NewProgressBar()
+		progressBar := widget.NewProgressBar()
 		progressBar.Max = 5 // Set the maximum value of the progress bar to 5 seconds
-
 		go simulateTyping(textEdit.Text, progressBar)
-
-		// Add progress bar to the content
-		content.Add(progressBar)
 	})
 
-	// Create a VBox to hold the text field, button, and progress bar
-	content = container.NewVBox(
+	// Arrange the widgets using VBox and VBox containers
+	content := container.NewVBox(
 		textEdit,
 		typeButton,
 	)
 
 	w.SetContent(content)
-	w.Resize(fyne.NewSize(450, 15)) // Adjusted window size
+	w.Resize(fyne.NewSize(450, 150)) // Adjusted window size
 
 	w.ShowAndRun()
 }
@@ -52,7 +41,7 @@ func simulateTyping(code string, progressBar *widget.ProgressBar) {
 
 	// Update progress bar while waiting
 	for i := 0; i <= 100; i++ {
-		progressBar.SetValue(float64(i) / 20)
+		progressBar.SetValue(float64(i) / 100)
 		time.Sleep(50 * time.Millisecond)
 	}
 
@@ -62,19 +51,9 @@ func simulateTyping(code string, progressBar *widget.ProgressBar) {
 	}
 }
 
-func typeLineWithFormatting(indentformating(line) string) {
+func typeLineWithFormatting(line string) {
 	for _, char := range line {
 		time.Sleep(time.Microsecond) // Simulate typing speed
 		robotgo.KeyTap(string(char)) // Simulate typing each character
 	}
-}
-
-func indentformating(line string) string {
-	var formattedLines []string
-	lines := strings.Split(line, "\n")
-	for _, l := range lines {
-		trimmedLine := strings.TrimLeft(l, " \t")
-		formattedLines = append(formattedLines, trimmedLine)
-	}
-	return strings.Join(formattedLines, "\n")
 }

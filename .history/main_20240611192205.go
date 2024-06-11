@@ -62,19 +62,9 @@ func simulateTyping(code string, progressBar *widget.ProgressBar) {
 	}
 }
 
-func typeLineWithFormatting(indentformating(line) string) {
+func typeLineWithFormatting(line string) {
 	for _, char := range line {
 		time.Sleep(time.Microsecond) // Simulate typing speed
 		robotgo.KeyTap(string(char)) // Simulate typing each character
 	}
-}
-
-func indentformating(line string) string {
-	var formattedLines []string
-	lines := strings.Split(line, "\n")
-	for _, l := range lines {
-		trimmedLine := strings.TrimLeft(l, " \t")
-		formattedLines = append(formattedLines, trimmedLine)
-	}
-	return strings.Join(formattedLines, "\n")
 }

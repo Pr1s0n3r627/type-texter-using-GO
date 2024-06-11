@@ -6,6 +6,7 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/color"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 	"github.com/go-vgo/robotgo"
@@ -22,8 +23,8 @@ func main() {
 
 	// Set the color of the progress bar to black
 	progressBar = widget.NewProgressBar()
-	progressBar.Max = 5 // Set the maximum value of the progress bar to 5 seconds
-
+	progressBar.Max = 5             // Set the maximum value of the progress bar to 5 seconds
+	progressBar.Color = color.Black // Set the color of the progress bar to black
 	content := container.NewVBox()
 	typeButton := widget.NewButton("Type", func() {
 		progressBar = widget.NewProgressBar()
@@ -62,19 +63,9 @@ func simulateTyping(code string, progressBar *widget.ProgressBar) {
 	}
 }
 
-func typeLineWithFormatting(indentformating(line) string) {
+func typeLineWithFormatting(line string) {
 	for _, char := range line {
 		time.Sleep(time.Microsecond) // Simulate typing speed
 		robotgo.KeyTap(string(char)) // Simulate typing each character
 	}
-}
-
-func indentformating(line string) string {
-	var formattedLines []string
-	lines := strings.Split(line, "\n")
-	for _, l := range lines {
-		trimmedLine := strings.TrimLeft(l, " \t")
-		formattedLines = append(formattedLines, trimmedLine)
-	}
-	return strings.Join(formattedLines, "\n")
 }
